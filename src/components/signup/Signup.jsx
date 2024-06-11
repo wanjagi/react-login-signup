@@ -3,13 +3,18 @@ import "./signup.css"
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
+import { setDoc, doc } from "firebase/firestore";
+import { toast } from "react-toastify";
+
+
 const Signup = () => {
 
     //create the states for username emmail and password
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
+
 
     // create function to handle register
     const handleRegister = async (e)=>{
@@ -19,9 +24,19 @@ const Signup = () => {
             await createUserWithEmailAndPassword(auth, email, password);
             const user = auth.currentUser;
             console.log(user);
-            console.log("User Registered Successfully")
+            
+            if (user){
+                await setDoc(doc(db, "Users", user.uid), {
+                    email: user.email,
+                    username: username,
+                });
+            }
+            console.log("User Registered Successfully");
+            toast.success("User Registered Successfuly", {position:"top-center",});
         } catch (error) {
             console.log(error.message)
+            toast.success(error.message, {position:"bottom-center",});
+
         }
     }
 
