@@ -4,6 +4,7 @@ import "./login.css"
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import { toast } from "react-toastify";
+import SignInWithGoogle from "../signinwithgoogle/SignInWithGoogle";
 
 const Login = () => {
 
@@ -59,6 +60,7 @@ const Login = () => {
                     <div className="register-link">
                         <p>Don't have an account? <Link to="/signup">Register</Link></p>
                     </div>
+                    <SignInWithGoogle/>
 
                 </form>
                 

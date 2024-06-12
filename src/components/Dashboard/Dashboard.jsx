@@ -10,6 +10,7 @@ const Dashboard = () => {
 
     const fetchUserData = async (user) => {
         try {
+            //setUserDetails(user);
             const docRef = doc(db, "Users", user.uid);
             const docSnap = await getDoc(docRef);
 
@@ -63,6 +64,13 @@ const Dashboard = () => {
             {userDetails ? (
                 <>
                     <div>
+                        <div style={{display:"flex", justifyContent:"center"}}> 
+                            <img
+                            src={userDetails.photo}
+                            width={"40%"}
+                            style={{borderRadius:"50%"}}
+                            />
+                        </div>
                         <p>Username: {userDetails.username}</p>
                         <p>Email: {userDetails.email}</p>
                     </div>
